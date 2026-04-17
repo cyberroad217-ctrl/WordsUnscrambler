@@ -1,5 +1,3 @@
-import { WordUnscrambler } from "@/components/WordUnscrambler";
+import Dashboard from "./Dashboard";
 
-export default function Index() {
-  return <WordUnscrambler />;
-}
+export default Dashboard;
