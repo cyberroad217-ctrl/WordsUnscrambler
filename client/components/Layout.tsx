@@ -11,6 +11,8 @@ import {
   HelpCircle,
   LogOut,
   ChevronRight,
+  Trophy,
+  User,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -24,6 +26,8 @@ const NAV_ITEMS = [
   { icon: Zap, label: "Game Mode", href: "/game", id: "game" },
   { icon: Clock, label: "History", href: "/history", id: "history" },
   { icon: BarChart3, label: "Statistics", href: "/statistics", id: "stats" },
+  { icon: Trophy, label: "Leaderboard", href: "/leaderboard", id: "leaderboard" },
+  { icon: User, label: "Profile", href: "/profile", id: "profile" },
   { icon: Settings, label: "Settings", href: "/settings", id: "settings" },
   { icon: HelpCircle, label: "Help", href: "/help", id: "help" },
 ];
