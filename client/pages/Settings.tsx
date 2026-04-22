@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Moon, Volume2, Lock, Eye, Trash2, Download, Upload } from "lucide-react";
+import { Bell, Moon, Volume2, Lock, Eye, Trash2, Download, Upload, Settings, LifeBuoy, Database } from "lucide-react";
 
 export default function Settings() {
   const [settings, setSettings] = useState({
