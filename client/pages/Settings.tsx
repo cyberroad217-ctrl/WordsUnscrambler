@@ -178,6 +178,42 @@ export default function Settings() {
           </div>
         </div>
 
+        {/* Advanced Options */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Settings className="w-6 h-6 text-emerald-600" />
+            Advanced Options
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Link
+              to="/advanced-settings"
+              className="p-6 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-lg border-2 border-teal-200 hover:border-teal-400 transition-all"
+            >
+              <div className="text-3xl mb-2">⚙️</div>
+              <h3 className="font-bold text-slate-800">Advanced Settings</h3>
+              <p className="text-sm text-slate-600 mt-2">Performance, privacy, and developer options</p>
+            </Link>
+
+            <Link
+              to="/troubleshooting"
+              className="p-6 bg-gradient-to-br from-red-50 to-orange-50 rounded-lg border-2 border-red-200 hover:border-red-400 transition-all"
+            >
+              <div className="text-3xl mb-2">🔧</div>
+              <h3 className="font-bold text-slate-800">Troubleshooting</h3>
+              <p className="text-sm text-slate-600 mt-2">Common issues and solutions</p>
+            </Link>
+
+            <Link
+              to="/backup-restore"
+              className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border-2 border-blue-200 hover:border-blue-400 transition-all"
+            >
+              <div className="text-3xl mb-2">💾</div>
+              <h3 className="font-bold text-slate-800">Backup & Restore</h3>
+              <p className="text-sm text-slate-600 mt-2">Backup and recover your data</p>
+            </Link>
+          </div>
+        </div>
+
         {/* About Section */}
         <div className="bg-gradient-to-r from-emerald-500 to-green-600 rounded-2xl shadow-lg p-8 text-white">
           <h2 className="text-2xl font-bold mb-4">About WordZap</h2>
