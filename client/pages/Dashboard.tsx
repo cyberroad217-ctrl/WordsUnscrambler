@@ -1,176 +1,275 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Zap, Flame, Trophy, Clock, BookOpen, Sparkles } from "lucide-react";
+import { Zap, Flame, Trophy, Clock, BookOpen, Sparkles, TrendingUp, Users, Target, Compass } from "lucide-react";
 
 export default function Dashboard() {
+  const userStats = {
+    level: 12,
+    xp: 2450,
+    nextLevelXp: 3000,
+    streak: 7,
+    totalGames: 142,
+    avgScore: 385,
+    accuracyRate: 78,
+    wordsDiscovered: 1847,
+    rank: 142,
+  };
+
   return (
     <div className="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8 lg:p-12">
-      <div className="max-w-6xl mx-auto space-y-8">
-        {/* Welcome Section */}
-        <div className="bg-gradient-to-r from-indigo-600 to-blue-600 rounded-2xl shadow-lg p-8 md:p-12 text-white">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div>
-              <h1 className="text-3xl md:text-4xl font-bold mb-2">Welcome back, User! 👋</h1>
-              <p className="text-indigo-100 text-lg">
-                Ready to unscramble some words today? Let's dive in!
-              </p>
+      <div className="max-w-7xl mx-auto space-y-8">
+        {/* Premium Header */}
+        <div className="relative rounded-3xl shadow-2xl overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600" />
+          <div className="absolute inset-0 opacity-40">
+            <div className="absolute top-0 left-0 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl" />
+          </div>
+
+          <div className="relative z-10 p-8 md:p-12 text-white">
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">Welcome back, Champion! 👋</h1>
+                <p className="text-indigo-100 text-lg">
+                  You're on a {userStats.streak}-day streak. Keep the momentum going!
+                </p>
+              </div>
+              <div className="text-right">
+                <p className="text-5xl font-bold">{userStats.level}</p>
+                <p className="text-indigo-100">Level</p>
+              </div>
             </div>
-            <Sparkles className="w-12 h-12 flex-shrink-0" />
+
+            {/* XP Bar */}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm opacity-90">Next Level</span>
+                <span className="text-sm opacity-90">
+                  {userStats.xp} / {userStats.nextLevelXp} XP
+                </span>
+              </div>
+              <div className="w-full h-3 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
+                <div
+                  className="h-full bg-gradient-to-r from-yellow-300 to-orange-400 rounded-full transition-all duration-500"
+                  style={{ width: `${(userStats.xp / userStats.nextLevelXp) * 100}%` }}
+                />
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Quick Stats */}
+        {/* Key Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-indigo-500">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 text-sm font-medium">Words Found Today</p>
-                <p className="text-3xl font-bold text-slate-800 mt-2">237</p>
-              </div>
-              <Zap className="w-8 h-8 text-indigo-500" />
-            </div>
-            <p className="text-xs text-slate-500 mt-3">↑ 42% from yesterday</p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-blue-500">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 text-sm font-medium">Current Streak</p>
-                <p className="text-3xl font-bold text-slate-800 mt-2">7</p>
-              </div>
-              <Flame className="w-8 h-8 text-blue-500" />
-            </div>
-            <p className="text-xs text-slate-500 mt-3">Keep it going! 🔥</p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-emerald-500">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 text-sm font-medium">Personal Best</p>
-                <p className="text-3xl font-bold text-slate-800 mt-2">18</p>
-              </div>
-              <Trophy className="w-8 h-8 text-emerald-500" />
-            </div>
-            <p className="text-xs text-slate-500 mt-3">Words in one game</p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border-l-4 border-violet-500">
-            <div className="flex items-start justify-between">
-              <div>
-                <p className="text-slate-600 text-sm font-medium">Total Time</p>
-                <p className="text-3xl font-bold text-slate-800 mt-2">4h 23m</p>
-              </div>
-              <Clock className="w-8 h-8 text-violet-500" />
-            </div>
-            <p className="text-xs text-slate-500 mt-3">Playing time</p>
-          </div>
-        </div>
-
-        {/* Main Action Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Unscrambler Card */}
-          <Link
-            to="/unscrambler"
-            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 transition-all duration-300 border border-slate-200 hover:border-indigo-300"
-          >
-            <div className="mb-4 inline-block p-3 bg-gradient-to-br from-indigo-100 to-blue-100 rounded-lg group-hover:scale-110 transition-transform">
-              <Zap className="w-6 h-6 text-indigo-600" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Word Unscrambler</h3>
-            <p className="text-slate-600 mb-6">
-              Enter any letters and find all possible words instantly.
-            </p>
-            <div className="flex items-center text-indigo-600 font-semibold">
-              Start Now <span className="ml-2">→</span>
-            </div>
-          </Link>
-
-          {/* Game Mode Card */}
-          <Link
-            to="/game"
-            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 transition-all duration-300 border border-slate-200 hover:border-blue-300"
-          >
-            <div className="mb-4 inline-block p-3 bg-gradient-to-br from-blue-100 to-cyan-100 rounded-lg group-hover:scale-110 transition-transform">
-              <Flame className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Game Mode</h3>
-            <p className="text-slate-600 mb-6">
-              Compete in timed challenges and climb the leaderboard.
-            </p>
-            <div className="flex items-center text-blue-600 font-semibold">
-              Play Now <span className="ml-2">→</span>
-            </div>
-          </Link>
-
-          {/* Learn Card */}
-          <Link
-            to="/help"
-            className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl p-8 transition-all duration-300 border border-slate-200 hover:border-emerald-300"
-          >
-            <div className="mb-4 inline-block p-3 bg-gradient-to-br from-emerald-100 to-green-100 rounded-lg group-hover:scale-110 transition-transform">
-              <BookOpen className="w-6 h-6 text-emerald-600" />
-            </div>
-            <h3 className="text-xl font-bold text-slate-800 mb-2">Learn & Help</h3>
-            <p className="text-slate-600 mb-6">
-              Tips, tricks, and frequently asked questions.
-            </p>
-            <div className="flex items-center text-emerald-600 font-semibold">
-              Learn More <span className="ml-2">→</span>
-            </div>
-          </Link>
-        </div>
-
-        {/* Recent Activity */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6">Recent Activity</h2>
-          <div className="space-y-4">
-            {[
-              { word: "listen", time: "2 hours ago", type: "Found" },
-              { word: "stream", time: "5 hours ago", type: "Found" },
-              { word: "python", time: "Yesterday", type: "Game" },
-              { word: "history", time: "2 days ago", type: "Found" },
-            ].map((item, idx) => (
+          {[
+            { icon: Flame, label: "Current Streak", value: userStats.streak, unit: "days", color: "from-orange-500 to-red-500" },
+            { icon: Trophy, label: "Global Rank", value: `#${userStats.rank}`, unit: "position", color: "from-yellow-500 to-orange-500" },
+            { icon: TrendingUp, label: "Accuracy", value: `${userStats.accuracyRate}%`, unit: "rate", color: "from-green-500 to-emerald-500" },
+            { icon: BookOpen, label: "Words Found", value: userStats.wordsDiscovered, unit: "total", color: "from-blue-500 to-cyan-500" },
+          ].map((stat, idx) => {
+            const Icon = stat.icon;
+            return (
               <div
                 key={idx}
-                className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition"
+                className={`bg-gradient-to-br ${stat.color} rounded-2xl shadow-lg p-6 text-white overflow-hidden relative group cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105`}
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
-                  <div>
-                    <p className="font-semibold text-slate-800">{item.word}</p>
-                    <p className="text-sm text-slate-500">{item.time}</p>
-                  </div>
+                <div className="absolute inset-0 opacity-10">
+                  <Icon className="absolute top-2 right-2 w-16 h-16" />
                 </div>
-                <span className="text-xs bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full font-medium">
-                  {item.type}
-                </span>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Icon className="w-5 h-5" />
+                    <p className="text-sm opacity-90">{stat.label}</p>
+                  </div>
+                  <p className="text-4xl font-bold">{stat.value}</p>
+                  <p className="text-xs opacity-75 mt-1">{stat.unit}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link
+            to="/unscrambler"
+            className="group relative overflow-hidden rounded-2xl shadow-lg p-8 bg-white border-2 border-indigo-100 hover:border-indigo-400 transition-all duration-300"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-800">Unscrambler</h3>
+                  <p className="text-slate-600 text-sm mt-1">Start a new search instantly</p>
+                </div>
+                <Zap className="w-8 h-8 text-indigo-600" />
+              </div>
+              <Button className="bg-indigo-600 hover:bg-indigo-700">
+                Start Now
+              </Button>
+            </div>
+          </Link>
+
+          <Link
+            to="/game"
+            className="group relative overflow-hidden rounded-2xl shadow-lg p-8 bg-white border-2 border-pink-100 hover:border-pink-400 transition-all duration-300"
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative z-10">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-800">Game Mode</h3>
+                  <p className="text-slate-600 text-sm mt-1">Earn XP and climb the leaderboard</p>
+                </div>
+                <Flame className="w-8 h-8 text-pink-600" />
+              </div>
+              <Button className="bg-pink-600 hover:bg-pink-700">
+                Play Now
+              </Button>
+            </div>
+          </Link>
+        </div>
+
+        {/* Stats Dashboard */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-slate-100">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6">Performance Overview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { label: "Total Games", value: userStats.totalGames, icon: "🎮" },
+              { label: "Average Score", value: userStats.avgScore, icon: "📊" },
+              { label: "Best Day Words", value: 42, icon: "📈" },
+            ].map((item, idx) => (
+              <div key={idx} className="p-6 bg-slate-50 rounded-xl border-2 border-slate-200 hover:border-slate-300 transition-all">
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-slate-600 font-medium">{item.label}</p>
+                  <span className="text-3xl">{item.icon}</span>
+                </div>
+                <p className="text-3xl font-bold text-slate-800">{item.value}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Leaderboard Preview */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold text-slate-800 mb-6">Top Players This Week</h2>
-          <div className="space-y-3">
-            {[
-              { rank: 1, name: "WordMaster", score: 1250, emoji: "👑" },
-              { rank: 2, name: "LinguaLion", score: 1180, emoji: "🦁" },
-              { rank: 3, name: "ScrambleKing", score: 1075, emoji: "👸" },
-              { rank: 4, name: "You", score: 945, emoji: "⭐" },
-              { rank: 5, name: "WordWizard", score: 920, emoji: "🧙" },
-            ].map((player) => (
-              <div key={player.rank} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg">
-                <div className="flex items-center gap-4">
-                  <span className="text-2xl">{player.emoji}</span>
-                  <div>
-                    <p className="font-semibold text-slate-800">
-                      #{player.rank} - {player.name}
-                    </p>
+        {/* Recent Activity & Achievements */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Recent Activity */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-slate-100">
+            <h2 className="text-2xl font-bold text-slate-800 mb-6">Recent Activity</h2>
+            <div className="space-y-4">
+              {[
+                { type: "Game Won", detail: "Scored 450 points in Timed Challenge", time: "2h ago", emoji: "🏆" },
+                { type: "Streak", detail: "7-day streak maintained", time: "1d ago", emoji: "🔥" },
+                { type: "Achievement", detail: "Unlocked 'Word Master' badge", time: "3d ago", emoji: "⭐" },
+                { type: "Level Up", detail: "Reached Level 12", time: "5d ago", emoji: "🚀" },
+              ].map((activity, idx) => (
+                <div
+                  key={idx}
+                  className="flex items-start gap-4 p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition-all"
+                >
+                  <span className="text-2xl">{activity.emoji}</span>
+                  <div className="flex-1">
+                    <p className="font-semibold text-slate-800">{activity.type}</p>
+                    <p className="text-sm text-slate-600">{activity.detail}</p>
                   </div>
+                  <span className="text-xs text-slate-500">{activity.time}</span>
                 </div>
-                <p className="text-lg font-bold text-indigo-600">{player.score} pts</p>
-              </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Achievements Showcase */}
+          <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-slate-100">
+            <h2 className="text-2xl font-bold text-slate-800 mb-6">Latest Achievements</h2>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { emoji: "🥇", name: "First Victory", unlocked: true },
+                { emoji: "🔥", name: "7-Day Streak", unlocked: true },
+                { emoji: "🎯", name: "Perfect Game", unlocked: true },
+                { emoji: "👑", name: "Leaderboard Top 100", unlocked: false },
+                { emoji: "💎", name: "Elite Player", unlocked: false },
+                { emoji: "🌟", name: "Legendary", unlocked: false },
+              ].map((achievement, idx) => (
+                <div
+                  key={idx}
+                  className={`p-4 rounded-lg text-center border-2 transition-all ${
+                    achievement.unlocked
+                      ? "bg-amber-50 border-amber-300"
+                      : "bg-slate-50 border-slate-200 opacity-50"
+                  }`}
+                >
+                  <div className="text-4xl mb-2">{achievement.emoji}</div>
+                  <p className="text-sm font-semibold text-slate-700">{achievement.name}</p>
+                  {achievement.unlocked && (
+                    <p className="text-xs text-amber-600 mt-1">✓ Unlocked</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Featured Challenges */}
+        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl shadow-lg p-8 border-2 border-indigo-200">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6">Today's Challenges</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: "Daily Puzzle",
+                desc: "Complete today's featured puzzle",
+                reward: "100 XP",
+                icon: "📍",
+              },
+              {
+                title: "Speed Challenge",
+                desc: "Find 20 words in 1 minute",
+                reward: "150 XP",
+                icon: "⚡",
+              },
+              {
+                title: "Rare Letters",
+                desc: "Use words with Q, X, or Z",
+                reward: "200 XP",
+                icon: "💠",
+              },
+            ].map((challenge, idx) => (
+              <button
+                key={idx}
+                className="p-6 bg-white rounded-xl border-2 border-indigo-200 hover:border-indigo-400 transition-all text-left group hover:shadow-lg"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <span className="text-3xl">{challenge.icon}</span>
+                  <span className="text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded">
+                    {challenge.reward}
+                  </span>
+                </div>
+                <h3 className="font-bold text-slate-800 group-hover:text-indigo-600 transition-colors">
+                  {challenge.title}
+                </h3>
+                <p className="text-sm text-slate-600 mt-1">{challenge.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Navigation Quick Links */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 border-2 border-slate-100">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6">Quick Navigation</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+            {[
+              { icon: "📊", label: "Statistics", href: "/statistics" },
+              { icon: "🏆", label: "Leaderboard", href: "/leaderboard" },
+              { icon: "📚", label: "History", href: "/history" },
+              { icon: "👤", label: "Profile", href: "/profile" },
+              { icon: "⚙️", label: "Settings", href: "/settings" },
+              { icon: "❓", label: "Help", href: "/help" },
+            ].map((link) => (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="p-4 rounded-xl bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-300 transition-all text-center group"
+              >
+                <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">{link.icon}</div>
+                <p className="text-sm font-semibold text-slate-700">{link.label}</p>
+              </Link>
             ))}
           </div>
         </div>
