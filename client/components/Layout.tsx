@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import {
   Menu,
@@ -35,6 +35,7 @@ const NAV_ITEMS = [
 export function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (href: string) => location.pathname === href;
 
@@ -131,11 +132,18 @@ export function Layout({ children }: LayoutProps) {
             </h2>
 
             {/* Header Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <button className="p-2 hover:bg-slate-100 rounded-lg transition">
                 <span className="text-xl">🔔</span>
               </button>
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold">
+              <button
+                onClick={() => navigate("/settings")}
+                className="p-2 hover:bg-slate-100 rounded-lg transition text-slate-600 hover:text-slate-800"
+                title="Settings"
+              >
+                <Settings className="w-6 h-6" />
+              </button>
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold cursor-pointer hover:shadow-lg transition">
                 U
               </div>
             </div>

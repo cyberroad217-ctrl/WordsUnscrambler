@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Moon, Volume2, Lock, Eye, Trash2, Download, Upload, Settings, LifeBuoy, Database } from "lucide-react";
+import { Bell, Moon, Volume2, Lock, Eye, Trash2, Download, Upload, Settings, LifeBuoy, Database, Zap, Users, Globe, Shield, Lightbulb, Palette } from "lucide-react";
 
 export default function Settings() {
   const [settings, setSettings] = useState({
@@ -11,6 +11,16 @@ export default function Settings() {
     soundEnabled: true,
     privateProfile: false,
     showStats: true,
+    emailNotifications: true,
+    pushNotifications: true,
+    autoSave: true,
+    compactMode: false,
+    colorScheme: "light",
+    language: "en",
+    shareGameResults: false,
+    twoFactorAuth: false,
+    activityLogging: true,
+    analyticsTracking: true,
   });
 
   const toggleSetting = (key: keyof typeof settings) => {
@@ -175,6 +185,237 @@ export default function Settings() {
               <Trash2 className="w-5 h-5 mr-2" />
               Delete Account
             </Button>
+          </div>
+        </div>
+
+        {/* Notification Preferences */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Zap className="w-6 h-6 text-emerald-600" />
+            Notification Preferences
+          </h2>
+          <div className="space-y-4">
+            {[
+              { id: "emailNotifications", label: "Email Notifications", desc: "Receive email updates about achievements and features" },
+              { id: "pushNotifications", label: "Push Notifications", desc: "Get push notifications on your device" },
+            ].map((setting) => (
+              <div
+                key={setting.id}
+                className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition"
+              >
+                <div>
+                  <p className="font-semibold text-slate-800">{setting.label}</p>
+                  <p className="text-sm text-slate-600">{setting.desc}</p>
+                </div>
+                <button
+                  onClick={() => toggleSetting(setting.id as any)}
+                  className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                    settings[setting.id as any] ? "bg-emerald-600" : "bg-slate-300"
+                  }`}
+                >
+                  <span
+                    className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                      settings[setting.id as any] ? "translate-x-7" : "translate-x-1"
+                    }`}
+                  />
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Display & Interface */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Palette className="w-6 h-6 text-emerald-600" />
+            Display & Interface
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Compact Mode</p>
+                <p className="text-sm text-slate-600">Reduce padding and spacing for a condensed view</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("compactMode")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.compactMode ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.compactMode ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-lg">
+              <p className="font-semibold text-slate-800 mb-3">Color Scheme</p>
+              <div className="flex gap-3">
+                {["light", "dark", "auto"].map((scheme) => (
+                  <button
+                    key={scheme}
+                    onClick={() => setSettings((prev) => ({ ...prev, colorScheme: scheme }))}
+                    className={`px-4 py-2 rounded-lg font-semibold capitalize transition-all ${
+                      settings.colorScheme === scheme
+                        ? "bg-emerald-600 text-white"
+                        : "bg-white border-2 border-slate-300 text-slate-700 hover:border-emerald-300"
+                    }`}
+                  >
+                    {scheme}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="p-4 bg-slate-50 rounded-lg">
+              <p className="font-semibold text-slate-800 mb-3">Language</p>
+              <select className="w-full px-4 py-2 border-2 border-slate-300 rounded-lg focus:border-emerald-500 focus:outline-none">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        {/* Social & Sharing */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Users className="w-6 h-6 text-emerald-600" />
+            Social & Sharing
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Share Game Results</p>
+                <p className="text-sm text-slate-600">Automatically share your game scores on social media</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("shareGameResults")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.shareGameResults ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.shareGameResults ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+                Facebook
+              </Button>
+              <Button className="bg-sky-500 hover:bg-sky-600 text-white">
+                Twitter
+              </Button>
+              <Button className="bg-rose-600 hover:bg-rose-700 text-white">
+                Instagram
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Security & Privacy Advanced */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Shield className="w-6 h-6 text-emerald-600" />
+            Security & Privacy Advanced
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Two-Factor Authentication</p>
+                <p className="text-sm text-slate-600">Add extra security to your account</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("twoFactorAuth")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.twoFactorAuth ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.twoFactorAuth ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Activity Logging</p>
+                <p className="text-sm text-slate-600">Keep track of your account login activity</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("activityLogging")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.activityLogging ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.activityLogging ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <Button className="w-full bg-slate-200 hover:bg-slate-300 text-slate-800 mt-4">
+              View Login History
+            </Button>
+          </div>
+        </div>
+
+        {/* Data & Privacy */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-3">
+            <Globe className="w-6 h-6 text-emerald-600" />
+            Data & Privacy
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Analytics & Tracking</p>
+                <p className="text-sm text-slate-600">Help us improve by sharing usage analytics</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("analyticsTracking")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.analyticsTracking ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.analyticsTracking ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between p-4 bg-slate-50 rounded-lg hover:bg-slate-100 transition">
+              <div>
+                <p className="font-semibold text-slate-800">Auto-Save Progress</p>
+                <p className="text-sm text-slate-600">Automatically save your progress while playing</p>
+              </div>
+              <button
+                onClick={() => toggleSetting("autoSave")}
+                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  settings.autoSave ? "bg-emerald-600" : "bg-slate-300"
+                }`}
+              >
+                <span
+                  className={`inline-block h-6 w-6 transform rounded-full bg-white transition-transform ${
+                    settings.autoSave ? "translate-x-7" : "translate-x-1"
+                  }`}
+                />
+              </button>
+            </div>
           </div>
         </div>
 
