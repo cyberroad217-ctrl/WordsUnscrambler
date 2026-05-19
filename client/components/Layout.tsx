@@ -41,11 +41,11 @@ export function Layout({ children }: LayoutProps) {
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
-    <div className="flex h-screen bg-slate-50">
+    <div className="flex flex-col min-h-screen bg-slate-50 lg:flex-row">
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 lg:relative lg:translate-x-0 lg:inset-auto lg:h-auto lg:min-h-screen",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -113,7 +113,7 @@ export function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden lg:ml-64">
+      <div className="flex-1 flex flex-col">
         {/* Header */}
         <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
           <div className="flex items-center justify-between h-16 px-4 md:px-8">
@@ -143,7 +143,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1">
           {children}
         </main>
       </div>
