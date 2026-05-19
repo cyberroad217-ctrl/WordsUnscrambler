@@ -133,7 +133,11 @@ export function Layout({ children }: LayoutProps) {
 
             {/* Header Actions */}
             <div className="flex items-center gap-3">
-              <button className="p-2 hover:bg-slate-100 rounded-lg transition">
+              <button
+                onClick={() => navigate("/help")}
+                className="p-2 hover:bg-slate-100 rounded-lg transition text-slate-600 hover:text-slate-800"
+                title="Notifications"
+              >
                 <span className="text-xl">🔔</span>
               </button>
               <button
@@ -143,9 +147,13 @@ export function Layout({ children }: LayoutProps) {
               >
                 <Settings className="w-6 h-6" />
               </button>
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold cursor-pointer hover:shadow-lg transition">
+              <button
+                onClick={() => navigate("/profile")}
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center text-white font-bold cursor-pointer hover:shadow-lg transition hover:scale-110"
+                title="Profile"
+              >
                 U
-              </div>
+              </button>
             </div>
           </div>
         </header>
