@@ -70,14 +70,14 @@ export function Layout({ children }: LayoutProps) {
         </button>
 
         {/* Logo Section */}
-        <div className="p-6 border-b border-indigo-700">
-          <Link to="/" onClick={closeSidebar} className="flex items-center gap-3 group">
-            <div className="p-2 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg">
-              <Zap className="w-6 h-6 text-indigo-900" />
+        <div className="p-4 border-b border-indigo-700">
+          <Link to="/" onClick={closeSidebar} className="flex items-center gap-2 group">
+            <div className="p-1.5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg">
+              <Zap className="w-5 h-5 text-indigo-900" />
             </div>
             <div>
-              <h1 className="text-xl font-bold">WordZap</h1>
-              <p className="text-xs text-indigo-300">Unscrambler Pro</p>
+              <h1 className="text-lg font-bold">WordZap</h1>
+              <p className="text-xs text-indigo-300">Pro</p>
             </div>
           </Link>
         </div>
