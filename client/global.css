@@ -99,18 +99,26 @@
 }
 
 @layer base {
-  html,
+  html {
+    height: auto;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+
   body {
     height: auto;
     overflow-y: auto;
+    @apply bg-background text-foreground;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
 
   * {
     @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 
   :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {

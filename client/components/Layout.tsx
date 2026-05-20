@@ -53,11 +53,11 @@ export function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 lg:flex-row">
+    <div className="flex flex-col min-h-screen bg-slate-50 lg:flex-row overflow-hidden">
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 lg:relative lg:translate-x-0 lg:inset-auto lg:h-auto lg:min-h-screen",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 flex flex-col lg:relative lg:translate-x-0 lg:inset-auto lg:h-auto lg:min-h-screen lg:overflow-y-auto",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -128,9 +128,9 @@ export function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-screen lg:min-h-0 overflow-hidden lg:overflow-visible">
         {/* Header */}
-        <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+        <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 flex-shrink-0">
           <div className="flex items-center justify-between h-16 px-4 md:px-8">
             {/* Menu Button (Mobile) */}
             <button
@@ -173,7 +173,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1">
+        <main className="flex-1 overflow-y-auto overscroll-contain">
           {children}
         </main>
       </div>

@@ -28,7 +28,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50 p-4 md:p-8 lg:p-12">
+    <div className="min-h-full bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50 p-4 md:p-8 lg:p-12 pb-12">
       <div className="max-w-2xl mx-auto space-y-8">
         {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-green-600 rounded-2xl shadow-lg p-8 text-white">

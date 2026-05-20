@@ -56,7 +56,7 @@ export default function Help() {
   );
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 p-4 md:p-8 lg:p-12">
+    <div className="min-h-full bg-gradient-to-br from-slate-50 via-indigo-50 to-purple-50 p-4 md:p-8 lg:p-12 pb-12">
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Header */}
         <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl shadow-lg p-8 text-white">

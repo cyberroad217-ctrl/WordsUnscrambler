@@ -172,7 +172,7 @@ export default function Game() {
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 p-4 md:p-8 lg:p-12">
+    <div className="min-h-full bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 p-4 md:p-8 lg:p-12 pb-12">
       <div className="max-w-7xl mx-auto space-y-6">
         {!gameState.isActive && !gameState.gameOver ? (
           // Game Selection Screen
