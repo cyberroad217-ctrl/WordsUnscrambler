@@ -7,6 +7,14 @@ publish = "dist/spa"
 [functions]
 external_node_modules = ["express"]
 node_bundler = "esbuild"
+
+# Redirect all routes to index.html for client-side routing (SPA)
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
+
+# API routes go to netlify functions
 [[redirects]]
 force = true
 from = "/api/*"
