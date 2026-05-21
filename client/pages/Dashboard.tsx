@@ -16,7 +16,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8 lg:p-12">
+    <div className="min-h-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-4 md:p-8 lg:p-12 pb-12">
       <div className="max-w-7xl mx-auto space-y-8">
         {/* Premium Header */}
         <div className="relative rounded-3xl shadow-2xl overflow-hidden">

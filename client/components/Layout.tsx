@@ -53,11 +53,11 @@ export function Layout({ children }: LayoutProps) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-50 lg:flex-row">
+    <div className="flex flex-col min-h-screen bg-slate-50 lg:flex-row overflow-hidden">
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 lg:relative lg:translate-x-0 lg:inset-auto lg:h-auto lg:min-h-screen",
+          "fixed inset-y-0 left-0 z-50 w-64 bg-gradient-to-b from-indigo-900 to-indigo-800 text-white shadow-xl transition-transform duration-300 flex flex-col lg:relative lg:translate-x-0 lg:inset-auto lg:h-auto lg:min-h-screen lg:overflow-y-auto",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -70,14 +70,14 @@ export function Layout({ children }: LayoutProps) {
         </button>
 
         {/* Logo Section */}
-        <div className="p-6 border-b border-indigo-700">
-          <Link to="/" onClick={closeSidebar} className="flex items-center gap-3 group">
-            <div className="p-2 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg">
-              <Zap className="w-6 h-6 text-indigo-900" />
+        <div className="p-4 border-b border-indigo-700">
+          <Link to="/" onClick={closeSidebar} className="flex items-center gap-2 group">
+            <div className="p-1.5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-lg">
+              <Zap className="w-5 h-5 text-indigo-900" />
             </div>
             <div>
-              <h1 className="text-xl font-bold">WordZap</h1>
-              <p className="text-xs text-indigo-300">Unscrambler Pro</p>
+              <h1 className="text-lg font-bold">WordZap</h1>
+              <p className="text-xs text-indigo-300">Pro</p>
             </div>
           </Link>
         </div>
@@ -128,9 +128,9 @@ export function Layout({ children }: LayoutProps) {
       )}
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-h-screen lg:min-h-0 overflow-hidden lg:overflow-visible">
         {/* Header */}
-        <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40">
+        <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-40 flex-shrink-0">
           <div className="flex items-center justify-between h-16 px-4 md:px-8">
             {/* Menu Button (Mobile) */}
             <button
@@ -173,7 +173,7 @@ export function Layout({ children }: LayoutProps) {
         </header>
 
         {/* Content Area */}
-        <main className="flex-1">
+        <main className="flex-1 overflow-y-auto overscroll-contain">
           {children}
         </main>
       </div>

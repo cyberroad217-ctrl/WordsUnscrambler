@@ -59,8 +59,8 @@ export default function Signup() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
-        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 text-center">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center justify-center p-4 py-8 overflow-y-auto">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 text-center my-auto">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
@@ -73,8 +73,8 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center justify-center p-4 py-8 overflow-y-auto">
+      <div className="w-full max-w-md my-auto">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl mb-4">
