@@ -17,8 +17,12 @@ export default function Signup() {
   const navigate = useNavigate();
 
   const validateForm = () => {
-    if (!email || !password || !confirmPassword || !username) {
+    if (!email.trim() || !password.trim() || !confirmPassword.trim() || !username.trim()) {
       setError("All fields are required");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address");
       return false;
     }
     if (password !== confirmPassword) {
@@ -26,11 +30,15 @@ export default function Signup() {
       return false;
     }
     if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+      setError("Password must be at least 6 characters long");
       return false;
     }
-    if (username.length < 3) {
-      setError("Username must be at least 3 characters");
+    if (username.trim().length < 3) {
+      setError("Username must be at least 3 characters long");
+      return false;
+    }
+    if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
+      setError("Username can only contain letters, numbers, underscores, and dashes");
       return false;
     }
     return true;
@@ -40,18 +48,25 @@ export default function Signup() {
     e.preventDefault();
     setError(null);
 
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      return;
+    }
 
     setLoading(true);
 
     try {
+      console.log("🔐 Attempting signup...");
       await signUp(email, password);
+      console.log("✅ Signup successful");
       setSuccess(true);
       setTimeout(() => {
+        console.log("📍 Redirecting to login...");
         navigate("/login");
       }, 2000);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Sign up failed. Please try again.");
+      const message = err instanceof Error ? err.message : "Sign up failed. Please try again.";
+      console.error("❌ Signup failed:", message);
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -59,8 +74,8 @@ export default function Signup() {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center justify-center p-4 py-8 overflow-y-auto">
-        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 text-center my-auto">
+      <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
+        <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
             <CheckCircle className="w-8 h-8 text-green-600" />
           </div>
@@ -73,8 +88,8 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center justify-center p-4 py-8 overflow-y-auto">
-      <div className="w-full max-w-md my-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl mb-4">

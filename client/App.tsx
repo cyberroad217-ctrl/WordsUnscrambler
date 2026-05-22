@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import Index from "./pages/Index";
 import Unscrambler from "./pages/Unscrambler";
 import Game from "./pages/Game";
@@ -184,17 +185,33 @@ function AppRoutes() {
 }
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <AuthProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </AuthProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </AuthProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
-createRoot(document.getElementById("root")!).render(<App />);
+const root = document.getElementById("root");
+if (!root) {
+  console.error("❌ Root element not found. Cannot mount React application.");
+  document.body.innerHTML =
+    '<div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: system-ui; text-align: center;"><div><h1>Application Error</h1><p>Failed to initialize application. Please refresh the page.</p></div></div>';
+} else {
+  try {
+    createRoot(root).render(<App />);
+    console.log("✅ Application mounted successfully");
+  } catch (error) {
+    console.error("❌ Fatal error during app render:", error);
+    root.innerHTML =
+      '<div style="display: flex; align-items: center; justify-content: center; height: 100vh; font-family: system-ui; text-align: center;"><div><h1>Application Error</h1><p>Failed to render application. Please refresh the page.</p></div></div>';
+  }
+}

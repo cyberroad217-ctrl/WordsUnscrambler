@@ -13,24 +13,50 @@ export default function Login() {
   const { signIn } = useAuth();
   const navigate = useNavigate();
 
+  const validateForm = (): boolean => {
+    if (!email.trim()) {
+      setError("Please enter your email address");
+      return false;
+    }
+    if (!password.trim()) {
+      setError("Please enter your password");
+      return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid email address");
+      return false;
+    }
+    return true;
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
+      console.log("🔐 Attempting login...");
       await signIn(email, password);
+      console.log("✅ Login successful, redirecting...");
       navigate("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+      const message = err instanceof Error ? err.message : "Login failed. Please try again.";
+      console.error("❌ Login failed:", message);
+      setError(message);
+      // Don't redirect on error
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex flex-col items-center justify-center p-4 py-8 overflow-y-auto">
-      <div className="w-full max-w-md my-auto">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-white/20 backdrop-blur-md rounded-2xl mb-4">
@@ -124,7 +150,7 @@ export default function Login() {
           </Link>
 
           {/* Footer */}
-          <p className="text-center text-xs text-slate-500 mt-6 pb-4">
+          <p className="text-center text-xs text-slate-500 mt-6">
             By signing in, you agree to our{" "}
             <a href="#" className="text-indigo-600 hover:underline">
               Terms of Service
