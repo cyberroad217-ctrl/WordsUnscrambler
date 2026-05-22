@@ -1,46 +1,45 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { getSupabaseUrl, getSupabaseAnonKey, logConfigStatus } from "./config";
 
-// Initialize Supabase client with defensive checks
+// Get environment variables directly from Vite
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Log environment status
+console.log("📋 Supabase Configuration Check:");
+console.log(`   URL: ${supabaseUrl ? "✅ Set" : "❌ Missing"}`);
+console.log(`   Key: ${supabaseAnonKey ? "✅ Set" : "❌ Missing"}`);
+
+// Initialize Supabase client
 let supabase: SupabaseClient | null = null;
 
 try {
-  const supabaseUrl = getSupabaseUrl();
-  const supabaseAnonKey = getSupabaseAnonKey();
+  if (!supabaseUrl) {
+    console.error("❌ VITE_SUPABASE_URL is not defined");
+    console.error("   Add to .env.local or Netlify environment variables");
+  }
 
-  // Log configuration status
-  logConfigStatus();
+  if (!supabaseAnonKey) {
+    console.error("❌ VITE_SUPABASE_ANON_KEY is not defined");
+    console.error("   Add to .env.local or Netlify environment variables");
+  }
 
   if (supabaseUrl && supabaseAnonKey) {
-    try {
-      supabase = createClient(supabaseUrl, supabaseAnonKey);
-      console.log("✅ Supabase client initialized successfully");
-    } catch (clientError) {
-      console.error("❌ Error creating Supabase client:", clientError);
-    }
+    supabase = createClient(supabaseUrl, supabaseAnonKey);
+    console.log("✅ Supabase client initialized successfully");
   } else {
-    console.warn("⚠️ Supabase will not work without proper environment variables");
+    console.warn("⚠️ Supabase initialization skipped - missing environment variables");
   }
 } catch (error) {
-  console.error("❌ Error initializing Supabase:", error);
+  console.error("❌ Fatal error initializing Supabase:", error);
 }
-
-// Export null-safe supabase client
-export const getSupabaseClient = () => {
-  if (!supabase) {
-    console.warn("⚠️ Supabase client not initialized. Check your environment variables.");
-  }
-  return supabase;
-};
-
-// Export the supabase instance (may be null if config is invalid)
-export { supabase };
 
 // Helper functions for authentication with error handling
 export async function signUp(email: string, password: string) {
   try {
     if (!supabase) {
-      throw new Error("Supabase client not initialized");
+      const msg = "Supabase client not initialized. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY";
+      console.error("❌", msg);
+      throw new Error(msg);
     }
     const { data, error } = await supabase.auth.signUp({
       email,
@@ -62,7 +61,9 @@ export async function signUp(email: string, password: string) {
 export async function signIn(email: string, password: string) {
   try {
     if (!supabase) {
-      throw new Error("Supabase client not initialized");
+      const msg = "Supabase client not initialized. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY";
+      console.error("❌", msg);
+      throw new Error(msg);
     }
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -84,7 +85,9 @@ export async function signIn(email: string, password: string) {
 export async function signOut() {
   try {
     if (!supabase) {
-      throw new Error("Supabase client not initialized");
+      const msg = "Supabase client not initialized. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY";
+      console.error("❌", msg);
+      throw new Error(msg);
     }
     const { error } = await supabase.auth.signOut();
     if (error) {
@@ -103,7 +106,7 @@ export async function signOut() {
 export async function getCurrentUser() {
   try {
     if (!supabase) {
-      console.warn("⚠️ Supabase client not initialized");
+      console.warn("⚠️ Supabase client not initialized - check environment variables");
       return null;
     }
     const {
@@ -125,7 +128,9 @@ export async function getCurrentUser() {
 export async function resetPassword(email: string) {
   try {
     if (!supabase) {
-      throw new Error("Supabase client not initialized");
+      const msg = "Supabase client not initialized. Check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY";
+      console.error("❌", msg);
+      throw new Error(msg);
     }
     const { data, error } = await supabase.auth.resetPasswordForEmail(email);
     if (error) {
@@ -140,6 +145,9 @@ export async function resetPassword(email: string) {
     return { data: null, error: new Error(message) };
   }
 }
+
+// Export the supabase instance
+export { supabase };
 
 // Helper functions for database operations with error handling
 export async function getUserProfile(userId: string) {
